@@ -8,9 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+     colors: {
+        maroon: {
+          DEFAULT: 'var(--primary-maroon)',
+          light: 'var(--primary-maroon-light)',
+        },
+        accent: {
+          red: 'var(--accent-red)',
+          gold: 'var(--accent-gold)',
+        },
+        warm: {
+          white: 'var(--bg-reddish-white)',
+        },
+        brand: {
+          dark: 'var(--text-dark)',
+          muted: 'var(--text-muted)',
+          light: 'var(--text-light)',
+        }
       },
     },
   },

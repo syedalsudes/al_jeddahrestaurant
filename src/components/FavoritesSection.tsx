@@ -1,3 +1,5 @@
+"use client";
+
 import Image from 'next/image';
 import {
     Star,
@@ -7,12 +9,15 @@ import {
     UtensilsCrossed,
     ChefHat
 } from 'lucide-react';
+import { useCartStore } from '@/store/useCartStore';
+
+
 
 const products = [
     {
         id: 1,
         name: "Seekh Kebab Classic",
-        price: "Rs 850",
+        price: 850,
         image: "/burger.png",
         desc: "Traditional minced meat skewers infused with secret spices and charcoal smoke.",
         tag: "Best Seller",
@@ -21,7 +26,7 @@ const products = [
     {
         id: 2,
         name: "Pulled Brisket",
-        price: "Rs 900",
+        price: 900,
         image: "/burger.png",
         desc: "12-hour slow-smoked beef brisket, shredded and smothered in house BBQ sauce.",
         tag: "Popular",
@@ -30,7 +35,7 @@ const products = [
     {
         id: 3,
         name: "Charred Wings",
-        price: "Rs 600",
+        price: 600,
         image: "/burger.png",
         desc: "Crispy skin, juicy inside, tossed in a spicy habanero and honey glaze.",
         tag: "Spicy",
@@ -39,7 +44,7 @@ const products = [
     {
         id: 4,
         name: "Smokehouse Bird",
-        price: "Rs 1800",
+        price: 1800,
         image: "/burger.png",
         desc: "Whole chicken marinated overnight and slow-roasted over hickory wood.",
         tag: "Feast",
@@ -48,7 +53,7 @@ const products = [
     {
         id: 5,
         name: "Beef Ribs Rack",
-        price: "Rs 2400",
+        price: 2400,
         image: "/burger.png",
         desc: "Fall-off-the-bone tender ribs with a dark, caramelized spicy crust.",
         tag: "Premium",
@@ -57,7 +62,7 @@ const products = [
     {
         id: 6,
         name: "Smoked Lamb Chops",
-        price: "Rs 1650",
+        price: 1650,
         image: "/burger.png",
         desc: "Succulent lamb chops grilled to perfection with rosemary smoke.",
         tag: "Chef's Choice",
@@ -66,7 +71,7 @@ const products = [
     {
         id: 7,
         name: "Tandoori Platter",
-        price: "Rs 3200",
+        price: 3200,
         image: "/burger.png",
         desc: "A grand mix of tikka, kebab, and wings served with mint chutney.",
         tag: "Must Try",
@@ -75,7 +80,7 @@ const products = [
     {
         id: 8,
         name: "Mutton Tikka",
-        price: "Rs 1100",
+        price: 1100,
         image: "/burger.png",
         desc: "Boneless mutton chunks marinated in yogurt and traditional red spices.",
         tag: "Classic",
@@ -84,6 +89,10 @@ const products = [
 ];
 
 const FavoritesSection = () => {
+
+
+    const addToCart = useCartStore((state) => state.addToCart);
+
     return (
         <section className="w-full bg-warm-white py-24 overflow-hidden relative">
             <div className="container mx-auto px-6 relative z-20">
@@ -146,7 +155,15 @@ const FavoritesSection = () => {
                                 </p>
 
                                 <div className="flex flex-col items-center gap-4 mt-2">
-                                    <p className="text-maroon font-black text-2xl tracking-tighter">{item.price}</p>
+                                    <div className="flex flex-col items-center gap-4 mt-2">
+                                        <p className="text-maroon font-black text-2xl tracking-tighter">Rs {item.price}</p>
+                                        <button
+                                            onClick={() => addToCart(item)}
+                                            className="bg-maroon text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-brand-dark transition-all active:scale-95"
+                                        >
+                                            Add to Cart
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

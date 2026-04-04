@@ -1,11 +1,20 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, ShoppingCart } from 'lucide-react';
+import { useCartStore } from '@/store/useCartStore';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const cart = useCartStore((state) => state.cart);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const navLinks = [
     { name: 'BBQ PIT', href: '#bbq' },
@@ -33,7 +42,7 @@ const Navbar = () => {
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-brand-light hover:text-accent-gold transition-colors duration-300 text-sm font-semibold tracking-wider"
+                className="text-accent-gold hover:text-brand-light transition-colors duration-300 text-sm font-semibold tracking-wider"
               >
                 {link.name}
               </Link>
@@ -41,10 +50,14 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-5">
-            <button className="text-brand-light hover:text-accent-gold relative">
+            <Link href="/cart" className="text-accent-gold hover:text-brand-light relative">
               <ShoppingCart size={22} />
-              <span className="absolute -top-2 -right-2 bg-accent-red text-xs px-1.5 py-0.5 rounded-full">2</span>
-            </button>
+              {mounted && totalItems > 0 && (
+                <span className="absolute -top-2 -right-2 bg-accent-red text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex items-center justify-center shadow-lg">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
             <Link 
               href="#order" 
               className="bg-accent-red hover:bg-maroon-light text-brand-light px-6 py-2 rounded-full font-bold text-sm transition-all duration-300 shadow-lg border border-maroon-light"

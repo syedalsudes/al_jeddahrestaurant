@@ -1,7 +1,7 @@
 import Hero from "@/components/HeroSection";
 import GrilledSection from "@/components/GrilledSection";
-import Animated3D from "@/components/AnimatedImageSection";
-import FavoritesSection from "@/components/FavoritesSection";
+import OfferSection from "@/components/OfferSection";
+import ProductSection from "@/components/ProductSection";
 
 
 
@@ -11,8 +11,8 @@ export default function Home() {
     <>
     <Hero />
     <GrilledSection />
-    <Animated3D />
-    <FavoritesSection />
+    <OfferSection />
+    <ProductSection />
     </>
   );
 }

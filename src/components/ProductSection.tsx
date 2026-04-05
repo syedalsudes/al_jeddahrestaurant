@@ -88,15 +88,13 @@ const products = [
     }
 ];
 
-const FavoritesSection = () => {
-
-
+const ProductSection = () => {
     const addToCart = useCartStore((state) => state.addToCart);
 
     return (
         <section className="w-full bg-warm-white py-24 overflow-hidden relative">
             <div className="container mx-auto px-6 relative z-20">
-
+                {/* Header Section */}
                 <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
                     <div className="max-w-2xl">
                         <h4 className="text-accent-gold font-bold tracking-[0.2em] uppercase mb-2">The Sizzle & Smoke</h4>
@@ -111,13 +109,15 @@ const FavoritesSection = () => {
                     </div>
                 </div>
 
+                {/* Grid Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-20">
                     {products.map((item) => (
                         <div
                             key={item.id}
-                            className="bg-white rounded-[2.5rem] p-8 shadow-[0_15px_40px_rgba(0,0,0,0.04)] relative group transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_40px_70px_rgba(84,11,14,0.12)] border border-maroon/5"
+                            /* ADDED: flex flex-col aur h-full taake card puri height le */
+                            className="bg-white rounded-[2.5rem] p-8 shadow-[0_15px_40px_rgba(0,0,0,0.04)] relative group transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_40px_70px_rgba(84,11,14,0.12)] border border-maroon/5 flex flex-col h-full"
                         >
-
+                            {/* Icon Tag */}
                             <div className="absolute top-0 left-6 -translate-y-1/2 bg-maroon w-14 h-16 rounded-b-2xl flex items-center justify-center text-white shadow-lg group-hover:h-20 transition-all duration-300">
                                 <item.Icon size={28} strokeWidth={1.5} />
                             </div>
@@ -130,7 +130,8 @@ const FavoritesSection = () => {
                                 </div>
                             )}
 
-                            <div className="relative w-full h-44 mb-8 mt-4">
+                            {/* Product Image */}
+                            <div className="relative w-full h-44 mb-8 mt-4 shrink-0">
                                 <Image
                                     src={item.image}
                                     alt={item.name}
@@ -139,37 +140,40 @@ const FavoritesSection = () => {
                                 />
                             </div>
 
-                            <div className="text-center">
+                            <div className="text-center flex flex-col flex-grow">
                                 <div className="flex justify-center gap-1 mb-4">
                                     {[...Array(5)].map((_, i) => (
                                         <Star key={i} size={16} className="fill-accent-gold text-accent-gold" />
                                     ))}
                                 </div>
 
-                                <h3 className="text-brand-dark font-black text-2xl mb-2 group-hover:text-maroon transition-colors leading-tight">
+                                {/* Product Name - Fixed height for consistency */}
+                                <h3 className="text-brand-dark font-black text-2xl mb-2 group-hover:text-maroon transition-colors leading-tight line-clamp-2 min-h-[4rem]">
                                     {item.name}
                                 </h3>
 
-                                <p className="text-brand-muted text-sm leading-relaxed mb-6 line-clamp-2 h-10 px-2">
+                                {/* Description - Fixed height for consistency */}
+                                <p className="text-brand-muted text-sm leading-relaxed mb-6 line-clamp-2 min-h-[2.5rem] px-2">
                                     {item.desc}
                                 </p>
 
-                                <div className="flex flex-col items-center gap-4 mt-2">
-                                    <div className="flex flex-col items-center gap-4 mt-2">
-                                        <p className="text-maroon font-black text-2xl tracking-tighter">Rs {item.price}</p>
-                                        <button
-                                            onClick={() => addToCart(item)}
-                                            className="bg-maroon text-white px-6 py-2 rounded-full font-bold text-sm hover:bg-brand-dark transition-all active:scale-95"
-                                        >
-                                            Add to Cart
-                                        </button>
-                                    </div>
+                                {/* Price & Button Section */}
+                                {/* ADDED: mt-auto taake ye section hamesha bottom par rahe */}
+                                <div className="mt-auto flex flex-col items-center gap-4">
+                                    <p className="text-maroon font-black text-2xl tracking-tighter">Rs {item.price}</p>
+                                    <button
+                                        onClick={() => addToCart(item)}
+                                        className="w-full bg-maroon text-white px-6 py-3 rounded-full font-bold text-sm hover:bg-brand-dark transition-all active:scale-95 shadow-md"
+                                    >
+                                        Add to Cart
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
 
+                {/* Explore Button */}
                 <div className="mt-24 text-center">
                     <button className="group relative overflow-hidden bg-maroon text-warm-white px-12 py-5 rounded-full font-black text-lg transition-all shadow-2xl hover:shadow-maroon/40">
                         <span className="relative z-10 uppercase tracking-widest">Explore Full BBQ Menu</span>
@@ -178,11 +182,11 @@ const FavoritesSection = () => {
                 </div>
             </div>
 
-            {/* Decorative Background Elements */}
+            {/* Background Decorations */}
             <div className="absolute top-[20%] -left-20 w-[500px] h-[500px] bg-maroon/[0.03] rounded-full blur-[120px] -z-10"></div>
             <div className="absolute bottom-[10%] -right-20 w-[400px] h-[400px] bg-accent-gold/[0.03] rounded-full blur-[100px] -z-10"></div>
         </section>
     );
 };
 
-export default FavoritesSection;
+export default ProductSection;
